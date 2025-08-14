@@ -46,7 +46,7 @@ export class AiCoustics implements INodeType {
                 default: -14,
                 description: 'Target loudness level in LUFS',
                 typeOptions: {
-                    minValue: -50,
+                    minValue: -70,
                     maxValue: 0,
                 },
             },
@@ -55,9 +55,9 @@ export class AiCoustics implements INodeType {
                 name: 'loudnessPeakLimit',
                 type: 'number',
                 default: -1,
-                description: 'Peak loudness limit in dBFS',
+                description: 'Peak loudness limit',
                 typeOptions: {
-                    minValue: -50,
+                    minValue: -9,
                     maxValue: 0,
                 },
             },
