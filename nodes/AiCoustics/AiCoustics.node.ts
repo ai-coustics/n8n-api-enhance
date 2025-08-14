@@ -126,7 +126,7 @@ export class AiCoustics implements INodeType {
                 default: '',
             },
             {
-                displayName: 'Poll Interval (seconds)',
+                displayName: 'Poll Interval (Seconds)',
                 name: 'pollInterval',
                 type: 'number',
                 default: 10,
@@ -137,7 +137,7 @@ export class AiCoustics implements INodeType {
                 },
             },
             {
-                displayName: 'Max Wait Time (minutes)',
+                displayName: 'Max Wait Time (Minutes)',
                 name: 'maxWaitTime',
                 type: 'number',
                 default: 30,

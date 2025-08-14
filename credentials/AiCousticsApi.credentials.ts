@@ -6,7 +6,7 @@ import {
 
 export class AiCousticsApi implements ICredentialType {
     name = 'aiCousticsApi';
-    displayName = 'ai-coustics API';
+    displayName = 'Ai-Coustics API';
     documentationUrl = 'https://developers.ai-coustics.io/documentation';
     properties: INodeProperties[] = [
         {
