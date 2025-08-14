@@ -1,0 +1,74 @@
+name: Publish to NPM
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version to publish (e.g., patch, minor, major, or specific version like 1.0.0)"
+        required: true
+        default: "patch"
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests and linting
+        run: |
+          npm run lint
+          npm run build
+
+      - name: Configure git
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+
+      - name: Bump version (manual trigger)
+        if: github.event_name == "workflow_dispatch"
+        run: |
+          npm version ${{ github.event.inputs.version }} --no-git-tag-version
+          echo "NEW_VERSION=$(node -p \"require(
+'
+./package.json
+'
+).version\")" >> $GITHUB_ENV
+
+      - name: Extract version from tag (release trigger)
+        if: github.event_name == "release"
+        run: |
+          VERSION=${GITHUB_REF#refs/tags/v}
+          npm version $VERSION --no-git-tag-version
+          echo "NEW_VERSION=$VERSION" >> $GITHUB_ENV
+
+      - name: Build package
+        run: npm run build
+
+      - name: Publish to NPM
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Commit version changes (manual trigger)
+        if: github.event_name == "workflow_dispatch"
+        run: |
+          git add package.json package-lock.json
+          git commit -m "chore: bump version to ${{ env.NEW_VERSION }}" || exit 0
+          git tag v${{ env.NEW_VERSION }}
+          git push origin main
+          git push origin v${{ env.NEW_VERSION }}

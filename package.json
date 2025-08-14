@@ -1,19 +1,29 @@
 {
   "name": "n8n-nodes-ai-coustics-enhance",
   "version": "0.1.0",
-  "description": "",
+  "description": "n8n community node for ai-coustics speech enhancement API",
   "keywords": [
-    "n8n-community-node-package"
+    "n8n-community-node-package",
+    "n8n",
+    "ai-coustics",
+    "audio",
+    "speech",
+    "enhancement",
+    "voice"
   ],
   "license": "MIT",
-  "homepage": "",
+  "homepage": "https://github.com/ai-coustics/n8n-api-enhance#readme",
   "author": {
-    "name": "",
-    "email": ""
+    "name": "ai-coustics",
+    "email": "info@ai-coustics.com",
+    "url": "https://ai-coustics.com"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/ai-coustics/n8n-api-enhance.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ai-coustics/n8n-api-enhance/issues"
   },
   "engines": {
     "node": ">=20.15"
@@ -33,13 +43,9 @@
   "n8n": {
     "n8nNodesApiVersion": 1,
     "credentials": [
-      "dist/credentials/ExampleCredentialsApi.credentials.js",
-      "dist/credentials/HttpBinApi.credentials.js",
       "dist/credentials/AiCousticsApi.credentials.js"
     ],
     "nodes": [
-      "dist/nodes/ExampleNode/ExampleNode.node.js",
-      "dist/nodes/HttpBin/HttpBin.node.js",
       "dist/nodes/AiCoustics/AiCoustics.node.js"
     ]
   },
